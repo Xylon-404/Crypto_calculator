@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="https://telegra.ph/file/63ce1eab2502d3851c5c7.jpg" />
+  <meta property="og:title" content="it is a tool for xylon profit calculator" />
+  <meta property="og:description" content="it is a tool for xylon profit calculator ." />
+  <meta property="og:image" content="https://telegra.ph/file/f413805a4c055f467347b.jpg" />
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xylon Profit Calculator</title>
+  <style>
+  	body {
+  background: linear-gradient(to bottom, #001f3f, #000);
+  padding: 30px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  overscroll-behavior: none; /* Prevent scroll chaining */
+  }
+  
+  .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  }
+  
+  h1 {
+  color: #fff;
+  }
+  
+  label {
+  font-size: 20px;
+  color: #fff;
+  display: block;
+  margin-top: 20px;
+  }
+  
+  input[type="number"], input[type="text"] {
+  font-size: 18px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  text-align: center;
+  display: inline-block;
+  background-color: transparent;
+  color: #fff;
+  transition: all 0.3s ease;
+  }
+  
+  input[type="number"]:focus, input[type="text"]:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  transform: scale(1.05);
+  }
+  
+  button {
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  }
+  
+  button:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+  transform: scale(1.1);
+  }
+  
+  #result {
+  font-size: 24px;
+  margin-top: 20px;
+  color: #fff;
+  }
+  
+  .profit {
+  color: green;
+  }
+  
+  .loss {
+  color: red;
+  }
+  
+  .star {
+  width: 2px;
+  height: 2px;
+  background: white;
+  position: absolute;
+  border-radius: 50%;
+  animation: twinkling 2s infinite ease-in-out alternate;
+  }
+  
+  @keyframes twinkling {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.5); }
+  }
+  
+  .star:nth-child(1) { left: 10%; top: 20%; animation-duration: 1s; }
+  .star:nth-child(2) { left: 20%; top: 30%; animation-duration: 2s; }
+  .star:nth-child(3) { left: 30%; top: 40%; animation-duration: 1.5s; }
+  .star:nth-child(4) { left: 40%; top: 50%; animation-duration: 2.5s; }
+  .star:nth-child(5) { left: 50%; top: 60%; animation-duration: 2s; }
+  .star:nth-child(6) { left: 60%; top: 70%; animation-duration: 3s; }
+  .star:nth-child(7) { left: 70%; top: 80%; animation-duration: 1.7s; }
+  .star:nth-child(8) { left: 80%; top: 90%; animation-duration: 2.2s; }
+  .star:nth-child(9) { left: 90%; top: 10%; animation-duration: 1.8s; }
+  .star:nth-child(10) { left: 95%; top: 15%; animation-duration: 2.3s; }
+  
+  .meteoroid {
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(45deg, white, rgba(255, 255, 255, 0));
+  position: absolute;
+  border-radius: 50%;
+  animation: fall linear infinite;
+  }
+  
+  @keyframes fall {
+  0% {
+  transform: translateY(0) rotate(45deg);
+  opacity: 1;
+  }
+  100% {
+  transform: translateY(800px) translateX(300px) rotate(45deg);
+  opacity: 0;
+  }
+  }
+  
+  button {
+  margin: 0 5px;
+  margin-top: 20px; 
+  }
+  .meteoroid:nth-child(11) { left: 5%; top: -100px; animation-duration: 2s; }
+  .meteoroid:nth-child(12) { left: 15%; top: -200px; animation-duration: 3s; }
+  .meteoroid:nth-child(13) { left: 25%; top: -300px; animation-duration: 4s; }
+  .meteoroid:nth-child(14) { left: 35%; top: -400px; animation-duration: 2.5s; }
+  .meteoroid:nth-child(15) { left: 45%; top: -500px; animation-duration: 3.5s; }
+  
+  #developer {
+  margin-top: 20px;
+  color: red;
+  font-size: 13px;
+  }
+  
+  #developerLink {
+  color: yellow;
+  }
+  
+  #historyLink {
+  color: #4CAF50;
+  margin-top: 20px;
+  display: block;
+  }
+  
+  
+</style>
+</head>
+<body>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  
+  <div class="meteoroid"></div>
+  <div class="meteoroid"></div>
+  <div class="meteoroid"></div>
+  <div class="meteoroid"></div>
+  <div class="meteoroid"></div>
+  
+  <h1 id="heading"></h1>
+  <label for="title">টাইটেল:</label>
+  <input type="text" id="title"><br>
+  
+  <label for="currentValue">বর্তমান মূল্য:</label>
+  <input type="number" id="currentValue" step="any"><br>
+  
+  <label for="purchasePrice">ক্রয় মূল্য:</label>
+  <input type="number" id="purchasePrice" step="any"><br>
+  
+  <label for="futurePrice">ভবিষ্যতের মূল্য:</label>
+  <input type="number" id="futurePrice" step="any"><br>
+  
+  <button onclick="calculateProfit()">হিসাব করুন</button>
+  <a href="history.html" target="_blank"><button>হিস্ট্রি দেখুন</button></a>
+  
+  
+  <div id="result"></div>
+    
+  <div id="developer">
+    Developer:- <a id="developerLink" href="https://xylon-404.github.io/Abdullha_404/" target="_blank">ABDULLHA</a> || 
+    Join us:- <a href="https://t.me/Abdullha_404" target="_blank" style="color: yellow;">telegram</a>
+  </div>
+
+  <script>
+  
+  var headingText = "ক্রিপ্টো লাভ হিসাব";
+  var headingElement = document.getElementById('heading');
+  var i = 0;
+  
+  function typeHeading() {
+  if (i < headingText.length) {
+  headingElement.innerHTML += headingText.charAt(i);
+  i++;
+  setTimeout(typeHeading, 100);
+  }
+  }
+  
+  typeHeading();
+  
+  function calculateProfit() {
+  var title = document.getElementById('title').value;
+  var currentValue = parseFloat(document.getElementById('currentValue').value);
+  var purchasePrice = parseFloat(document.getElementById('purchasePrice').value);
+  var futurePrice = parseFloat(document.getElementById('futurePrice').value);
+  
+  var investment = purchasePrice / currentValue;
+  var profit = (futurePrice * investment) - purchasePrice;
+  var percentageChange = ((profit / purchasePrice) * 100).toFixed(2);
+  
+  var resultElement = document.getElementById('result');
+  
+  if (profit > 0) {
+  resultElement.innerHTML = "লাভ: <span class='profit'>$" + profit.toFixed(2) + "</span> (<span class='profit'>" + percentageChange + "%</span>)";
+  resultElement.style.color = 'green'; 
+  } else if (profit < 0) {
+  resultElement.innerHTML = "ক্ষতি: <span class='loss'>$" + Math.abs(profit).toFixed(2) + "</span> (<span class='loss'>" + Math.abs(percentageChange) + "%</span>)";
+  resultElement.style.color = 'red'; 
+  } else {
+  resultElement.innerHTML = "কোনো লাভ বা ক্ষতি নেই";
+  resultElement.style.color = 'white'; 
+  }
+  
+  saveHistory(title, currentValue, purchasePrice, futurePrice, profit, percentageChange);
+  }
+  
+  function saveHistory(title, currentValue, purchasePrice, futurePrice, profit, percentageChange) {
+  var history = JSON.parse(localStorage.getItem('xylonHistory')) || [];
+  var newEntry = {
+    title: title,
+    currentValue: currentValue,
+    purchasePrice: purchasePrice,
+    futurePrice: futurePrice,
+    profit: profit.toFixed(2),
+    percentageChange: percentageChange,
+    date: new Date().toLocaleString() 
+  };
+  history.push(newEntry);
+  localStorage.setItem('xylonHistory', JSON.stringify(history));
+}
+
+  </script>
+  
+  </body>
+  </html>
+  

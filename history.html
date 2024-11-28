@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xylon Profit History</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #001f3f, #000);
+      padding: 30px;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+      min-height: 200vh;
+      margin: 0;
+    }
+  
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+    }
+    h1 {
+      color: #fff;
+    }
+    table {
+      width: 80%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      color: #fff;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #4CAF50;
+    }
+    .profit {
+      color: green;
+    }
+    .loss {
+      color: red;
+    }
+    button {
+      font-size: 16px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: transparent;
+      color: #4CAF50;
+      border: 1px solid #4CAF50;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background-color: rgba(76, 175, 80, 0.1);
+      transform: scale(1.1);
+    }
+    .star {
+      width: 2px;
+      height: 2px;
+      background: white;
+      position: absolute;
+      border-radius: 50%;
+      animation: twinkling 2s infinite ease-in-out alternate;
+    }
+    @keyframes twinkling {
+      0% { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.5); }
+    }
+    .star:nth-child(1) { left: 10%; top: 20%; animation-duration: 1s; }
+    .star:nth-child(2) { left: 20%; top: 30%; animation-duration: 2s; }
+    .star:nth-child(3) { left: 30%; top: 40%; animation-duration: 1.5s; }
+    .star:nth-child(4) { left: 40%; top: 50%; animation-duration: 2.5s; }
+    .star:nth-child(5) { left: 50%; top: 60%; animation-duration: 2s; }
+    .star:nth-child(6) { left: 60%; top: 70%; animation-duration: 3s; }
+    .star:nth-child(7) { left: 70%; top: 80%; animation-duration: 1.7s; }
+    .star:nth-child(8) { left: 80%; top: 90%; animation-duration: 2.2s; }
+    .star:nth-child(9) { left: 90%; top: 10%; animation-duration: 1.8s; }
+    .star:nth-child(10) { left: 95%; top: 15%; animation-duration: 2.3s; }
+    .meteoroid {
+      width: 4px;
+      height: 4px;
+      background: linear-gradient(45deg, white, rgba(255, 255, 255, 0));
+      position: absolute;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(800px) translateX(300px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+    .meteoroid:nth-child(11) { left: 5%; top: -100px; animation-duration: 2s; }
+    .meteoroid:nth-child(12) { left: 15%; top: -200px; animation-duration: 3s; }
+    .meteoroid:nth-child(13) { left: 25%; top: -300px; animation-duration: 4s; }
+    .meteoroid:nth-child(14) { left: 35%; top: -400px; animation-duration: 2.5s; }
+    .meteoroid:nth-child(15) { left: 45%; top: -500px; animation-duration: 3.5s; }	
+</style>
+</head>
+<body>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+
+  <div class="meteoroid"></div>
+  <div class="meteoroid"></div>
+  <div class="meteoroid"></div>
+  <div class="meteoroid"></div>
+  <div class="meteoroid"></div>
+
+  <h1>লাভ-ক্ষতির হিস্ট্রি</h1>
+  <table id="historyTable">
+    <thead>
+      <tr>
+        <th>টাইটেল</th>
+        <th>বর্তমান মূল্য</th>
+        <th>ক্রয় মূল্য</th>
+        <th>ভবিষ্যতের মূল্য</th>
+        <th>লাভ/ক্ষতি</th>
+        <th>শতাংশ পরিবর্তন</th>
+        <th>সময়</th>
+        <th>অ্যাকশন</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <button onclick="clearHistory()">হিস্ট্রি মুছে ফেলুন</button>
+
+  <script>
+  	
+    function loadHistory() {
+  var history = JSON.parse(localStorage.getItem('xylonHistory')) || [];
+  var tableBody = document.getElementById('historyTable').querySelector('tbody');
+  tableBody.innerHTML = '';
+
+  history.forEach((entry, index) => {
+    var row = tableBody.insertRow();
+    row.insertCell(0).textContent = entry.title;
+    row.insertCell(1).textContent = entry.currentValue;
+    row.insertCell(2).textContent = entry.purchasePrice;
+    row.insertCell(3).textContent = entry.futurePrice;
+    var profitCell = row.insertCell(4);
+    if (entry.profit > 0) {
+      profitCell.innerHTML = '<span class="profit">$' + entry.profit + '</span>';
+    } else if (entry.profit < 0) {
+      profitCell.innerHTML = '<span class="loss">$' + Math.abs(entry.profit) + '</span>';
+    } else {
+      profitCell.textContent = "কোনো লাভ বা ক্ষতি নেই";
+    }
+    var percentageChangeCell = row.insertCell(5);
+    percentageChangeCell.textContent = entry.percentageChange + "%";
+    var dateCell = row.insertCell(6);
+    dateCell.textContent = entry.date; 
+    var deleteCell = row.insertCell(7);
+    var deleteButton = document.createElement('button');
+    deleteButton.textContent = 'ডিলিট';
+    deleteButton.onclick = function() { deleteHistoryEntry(index); };
+    deleteCell.appendChild(deleteButton);
+  });
+}
+
+
+    function deleteHistoryEntry(index) {
+      var history = JSON.parse(localStorage.getItem('xylonHistory')) || [];
+      history.splice(index, 1);
+      localStorage.setItem('xylonHistory', JSON.stringify(history));
+      loadHistory();
+    }
+
+    function clearHistory() {
+      localStorage.removeItem('xylonHistory');
+      loadHistory();
+    }
+
+    window.addEventListener('popstate', function(event) {
+      window.location.href = 'index.html';
+    });
+
+    window.history.pushState({}, '');
+
+    loadHistory();
+  </script>
+</body>
+</html>
